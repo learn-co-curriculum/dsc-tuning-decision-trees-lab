@@ -1,5 +1,5 @@
 
-# Decision Tree Pruning and Hyper-parameter Optimization - Lab
+# Hyperparameter Tuning and Pruning in Decision Trees - Lab
 
 ## Introduction
 
@@ -8,8 +8,8 @@ In this lab we will use the titanic dataset to see the impact of tree pruning an
 ## Objectives
 You will be able to:
 - Demonstrate how pruning is performed for decision trees 
-- Understand and explain the role of different DT hyper-parameters
-- Select the best values for chosen hyper parameters and monitor the improvemen in performance
+- Understand and explain the role of different Decision tree hyperparameters
+- Select the best values for chosen hyperparameters and monitor the improvemen in performance
 
 ## Import necessary libraries
 
