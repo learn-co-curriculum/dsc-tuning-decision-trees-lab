@@ -9,7 +9,7 @@ In this lab we will use the titanic dataset to see the impact of tree pruning an
 You will be able to:
 - Demonstrate how pruning is performed for decision trees 
 - Understand and explain the role of different Decision tree hyperparameters
-- Select the best values for chosen hyperparameters and monitor the improvemen in performance
+- Select the best values for chosen hyperparameters and monitor the improvement in performance
 
 ## Import necessary libraries
 
@@ -81,8 +81,8 @@ So now we have our data ready for training, lets first train a DT classifier wit
 __Note:__ The term "vanilla" is used for a machine learning algorithm with its default settings (no tweaking/tuning).
 
 - Create a decision tree instance
-- Fit a DT classifier with training dataset using all default settings for hyperparameters i.e. we dont change any parameter.
-- Set the impurity crietria to "entropy".
+- Fit a DT classifier with training dataset using all default settings for hyperparameters i.e. we don't change any parameter.
+- Set the impurity criteria to "entropy".
 
 
 ```python
