@@ -3,17 +3,17 @@
 
 ## Introduction
 
-In this lab you will use the titanic dataset to see the impact of tree pruning and hyperparameter tuning on the predictive performance of a decision tree classifier. Pruning reduces the size of decision trees by removing nodes of the tree that do not provide much predictive power to classify instances. Decision trees are the most susceptible out of all the machine learning algorithms to overfitting and effective pruning can reduce this likelihood. 
+In this lab, you will use the titanic dataset to see the impact of tree pruning and hyperparameter tuning on the predictive performance of a decision tree classifier. Pruning reduces the size of decision trees by removing nodes of the tree that do not provide much predictive power to classify instances. Decision trees are the most susceptible out of all the machine learning algorithms to overfitting and effective pruning can reduce this likelihood. 
 
 ## Objectives
 
 In this lab you will: 
 
-- Determine the optimal hyperparameters for a decision tree model and evaluate performance 
+- Determine the optimal hyperparameters for a decision tree model and evaluate the model performance
 
 ## Import necessary libraries
 
-Let's first import the libraries you would need for this lab. 
+Let's first import the libraries you'll need for this lab. 
 
 
 ```python
@@ -29,7 +29,7 @@ plt.style.use('seaborn')
 
 ## Import the data
 
-The titanic dataset, available in `'titanic.csv'`, is all cleaned up and pre-processed for you, so that you can focus on pruning and optimization. Import the dataset and print the first five rows of the data: 
+The titanic dataset, available in `'titanic.csv'`, is all cleaned up and preprocessed for you so that you can focus on pruning and optimization. Import the dataset and print the first five rows of the data: 
 
 
 ```python
@@ -72,7 +72,7 @@ dt = None
 
 ## Make predictions 
 - Create a set of predictions using the test set 
-- Using `y_test` and `y_pred`, calculate the AUC (Area under curve) to check the predictive performance
+- Using `y_test` and `y_pred`, calculate the AUC (Area under the curve) to check the predictive performance
 
 
 ```python
@@ -92,7 +92,7 @@ Let's first check for the best depth parameter for our decision tree:
 - Create an array for `max_depth` values ranging from 1 - 32  
 - In a loop, train the classifier for each depth value (32 runs) 
 - Calculate the training and test AUC for each run 
-- Plot a graph to show under/over fitting and optimal value 
+- Plot a graph to show under/overfitting and the optimal value 
 - Interpret the results 
 
 
@@ -113,7 +113,7 @@ Now check for the best `min_samples_splits` parameter for our decision tree
 - Create an array for `min_sample_splits` values ranging from 0.1 - 1 with an increment of 0.1 
 - In a loop, train the classifier for each `min_samples_splits` value (10 runs) 
 - Calculate the training and test AUC for each run 
-- Plot a graph to show under/over fitting and optimal value 
+- Plot a graph to show under/overfitting and the optimal value 
 - Interpret the results
 
 
@@ -134,7 +134,7 @@ Now check for the best `min_samples_leafs` parameter value for our decision tree
 - Create an array for `min_samples_leafs` values ranging from 0.1 - 0.5 with an increment of 0.1 
 - In a loop, train the classifier for each `min_samples_leafs` value (5 runs) 
 - Calculate the training and test AUC for each run 
-- Plot a graph to show under/over fitting and optimal value 
+- Plot a graph to show under/overfitting and the optimal value 
 - Interpret the results
 
 
@@ -153,10 +153,10 @@ Now check for the best `min_samples_leafs` parameter value for our decision tree
 
 Now check for the best `max_features` parameter value for our decision tree 
 
-- Create an array for `max_features` values ranging from 1 - 12 (1 features vs all)
+- Create an array for `max_features` values ranging from 1 - 12 (1 feature vs all)
 - In a loop, train the classifier for each `max_features` value (12 runs) 
 - Calculate the training and test AUC for each run 
-- Plot a graph to show under/over fitting and optimal value 
+- Plot a graph to show under/overfitting and the optimal value 
 - Interpret the results
 
 
@@ -172,11 +172,11 @@ Now check for the best `max_features` parameter value for our decision tree
 
 ## Re-train the classifier with chosen values
 
-So now we shall use the best values from each training phase above and feed it back to our classifier and see if have any improvement in predictive performance. 
+Now we will use the best values from each training phase above and feed it back to our classifier. Then we can see if there is any improvement in predictive performance. 
 
-- Train the classifier with optimal values identified 
-- Compare the AUC with vanilla DT AUC 
-- Interpret the results of comparison
+- Train the classifier with the optimal values identified 
+- Compare the AUC of the new model with the earlier vanilla decision tree AUC 
+- Interpret the results of the comparison
 
 
 ```python
