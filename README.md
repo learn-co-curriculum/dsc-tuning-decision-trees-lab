@@ -191,7 +191,7 @@ roc_auc
 
 
 ```python
-# You observations here
+# Your observations here
 ```
 
 In the next section, we shall talk about hyperparameter tuning using a technique called "grid-search" to make this process even more granular and decisive. 
