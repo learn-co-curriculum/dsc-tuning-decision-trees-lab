@@ -186,7 +186,7 @@ plt.show()
 
 
 ```python
-# You observations here 
+# Your observations here 
 ```
 
 
