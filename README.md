@@ -103,7 +103,7 @@ Let's first check for the best depth parameter for our decision tree:
 
 
 ```python
-# You observations here 
+# Your observations here 
 ```
 
 ## Minimum Sample Split
