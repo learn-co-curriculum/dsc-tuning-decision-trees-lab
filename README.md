@@ -1,4 +1,3 @@
-
 # Hyperparameter Tuning and Pruning in Decision Trees - Lab
 
 ## Introduction
@@ -194,7 +193,7 @@ roc_auc
 # Your observations here
 ```
 
-In the next section, we shall talk about hyperparameter tuning using a technique called "grid-search" to make this process even more granular and decisive. 
+In order to address the issue of a baseline classifier performing better than a tuned one like this, a more-sophisticated technique is called a "grid search" and this will be introduced in a future lesson.
 
 ## Summary 
 
