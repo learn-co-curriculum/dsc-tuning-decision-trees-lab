@@ -1,4 +1,3 @@
-
 # Hyperparameter Tuning and Pruning in Decision Trees - Lab
 
 ## Introduction
@@ -59,6 +58,135 @@ df = pd.read_csv('titanic.csv')
 df.head()
 ```
 
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Fare</th>
+      <th>Pclass_1</th>
+      <th>Pclass_2</th>
+      <th>Pclass_3</th>
+      <th>Sex_female</th>
+      <th>Sex_male</th>
+      <th>Embarked_C</th>
+      <th>Embarked_Q</th>
+      <th>Embarked_S</th>
+      <th>Survived</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>7.2500</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>71.2833</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7.9250</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>53.1000</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8.0500</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
 ## Create training and test sets
 
 - Assign the `'Survived'` column to `y` 
@@ -111,6 +239,13 @@ dt = DecisionTreeClassifier(criterion='entropy', random_state=SEED)
 dt.fit(X_train, y_train)
 ```
 
+
+
+
+    DecisionTreeClassifier(criterion='entropy', random_state=1)
+
+
+
 ## Make predictions 
 - Create a set of predictions using the test set 
 - Using `y_test` and `y_pred`, calculate the AUC (Area under the curve) to check the predictive performance
@@ -138,6 +273,13 @@ roc_auc = auc(false_positive_rate, true_positive_rate)
 roc_auc
 ```
 
+
+
+
+    0.7367718101733446
+
+
+
 ## Maximum Tree Depth
 
 Let's first check for the best depth parameter for our decision tree: 
@@ -158,22 +300,22 @@ Let's first check for the best depth parameter for our decision tree:
 ```python
 # __SOLUTION__ 
 # Identify the optimal tree depth for given data
-max_depths = np.linspace(1, 32, 32, endpoint=True)
+max_depths = list(range(1, 33))
 train_results = []
 test_results = []
 for max_depth in max_depths:
-   dt = DecisionTreeClassifier(criterion='entropy', max_depth=max_depth, random_state=SEED)
-   dt.fit(X_train, y_train)
-   train_pred = dt.predict(X_train)
-   false_positive_rate, true_positive_rate, thresholds = roc_curve(y_train, train_pred)
-   roc_auc = auc(false_positive_rate, true_positive_rate)
-   # Add auc score to previous train results
-   train_results.append(roc_auc)
-   y_pred = dt.predict(X_test)
-   false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test, y_pred)
-   roc_auc = auc(false_positive_rate, true_positive_rate)
-   # Add auc score to previous test results
-   test_results.append(roc_auc)
+    dt = DecisionTreeClassifier(criterion='entropy', max_depth=max_depth, random_state=SEED)
+    dt.fit(X_train, y_train)
+    train_pred = dt.predict(X_train)
+    false_positive_rate, true_positive_rate, thresholds = roc_curve(y_train, train_pred)
+    roc_auc = auc(false_positive_rate, true_positive_rate)
+    # Add auc score to previous train results
+    train_results.append(roc_auc)
+    y_pred = dt.predict(X_test)
+    false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test, y_pred)
+    roc_auc = auc(false_positive_rate, true_positive_rate)
+    # Add auc score to previous test results
+    test_results.append(roc_auc)
 
 plt.figure(figsize=(12,6))
 plt.plot(max_depths, train_results, 'b', label='Train AUC')
@@ -183,6 +325,12 @@ plt.xlabel('Tree depth')
 plt.legend()
 plt.show()
 ```
+
+
+    
+![png](index_files/index_18_0.png)
+    
+
 
 
 ```python
@@ -222,16 +370,16 @@ min_samples_splits = np.linspace(0.1, 1.0, 10, endpoint=True)
 train_results = []
 test_results = []
 for min_samples_split in min_samples_splits:
-   dt = DecisionTreeClassifier(criterion='entropy', min_samples_split=min_samples_split, random_state=SEED)
-   dt.fit(X_train, y_train)
-   train_pred = dt.predict(X_train)
-   false_positive_rate, true_positive_rate, thresholds =    roc_curve(y_train, train_pred)
-   roc_auc = auc(false_positive_rate, true_positive_rate)
-   train_results.append(roc_auc)
-   y_pred = dt.predict(X_test)
-   false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test, y_pred)
-   roc_auc = auc(false_positive_rate, true_positive_rate)
-   test_results.append(roc_auc)
+    dt = DecisionTreeClassifier(criterion='entropy', min_samples_split=min_samples_split, random_state=SEED)
+    dt.fit(X_train, y_train)
+    train_pred = dt.predict(X_train)
+    false_positive_rate, true_positive_rate, thresholds =    roc_curve(y_train, train_pred)
+    roc_auc = auc(false_positive_rate, true_positive_rate)
+    train_results.append(roc_auc)
+    y_pred = dt.predict(X_test)
+    false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test, y_pred)
+    roc_auc = auc(false_positive_rate, true_positive_rate)
+    test_results.append(roc_auc)
 
 plt.figure(figsize=(12,6))
 plt.plot(min_samples_splits, train_results, 'b', label='Train AUC')
@@ -240,6 +388,12 @@ plt.xlabel('Min. Sample splits')
 plt.legend()
 plt.show()
 ```
+
+
+    
+![png](index_files/index_23_0.png)
+    
+
 
 
 ```python
@@ -277,16 +431,16 @@ min_samples_leafs = np.linspace(0.1, 0.5, 5, endpoint=True)
 train_results = []
 test_results = []
 for min_samples_leaf in min_samples_leafs:
-   dt = DecisionTreeClassifier(criterion='entropy', min_samples_leaf=min_samples_leaf, random_state=SEED)
-   dt.fit(X_train, y_train)
-   train_pred = dt.predict(X_train)
-   false_positive_rate, true_positive_rate, thresholds = roc_curve(y_train, train_pred)
-   roc_auc = auc(false_positive_rate, true_positive_rate)
-   train_results.append(roc_auc)
-   y_pred = dt.predict(X_test)
-   false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test, y_pred)
-   roc_auc = auc(false_positive_rate, true_positive_rate)
-   test_results.append(roc_auc)
+    dt = DecisionTreeClassifier(criterion='entropy', min_samples_leaf=min_samples_leaf, random_state=SEED)
+    dt.fit(X_train, y_train)
+    train_pred = dt.predict(X_train)
+    false_positive_rate, true_positive_rate, thresholds = roc_curve(y_train, train_pred)
+    roc_auc = auc(false_positive_rate, true_positive_rate)
+    train_results.append(roc_auc)
+    y_pred = dt.predict(X_test)
+    false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test, y_pred)
+    roc_auc = auc(false_positive_rate, true_positive_rate)
+    test_results.append(roc_auc)
     
 plt.figure(figsize=(12,6))    
 plt.plot(min_samples_leafs, train_results, 'b', label='Train AUC')
@@ -296,6 +450,12 @@ plt.xlabel('Min. Sample Leafs')
 plt.legend()
 plt.show()
 ```
+
+
+    
+![png](index_files/index_28_0.png)
+    
+
 
 
 ```python
@@ -334,16 +494,16 @@ max_features = list(range(1, X_train.shape[1]))
 train_results = []
 test_results = []
 for max_feature in max_features:
-   dt = DecisionTreeClassifier(criterion='entropy', max_features=max_feature, random_state=SEED)
-   dt.fit(X_train, y_train)
-   train_pred = dt.predict(X_train)
-   false_positive_rate, true_positive_rate, thresholds = roc_curve(y_train, train_pred)
-   roc_auc = auc(false_positive_rate, true_positive_rate)
-   train_results.append(roc_auc)
-   y_pred = dt.predict(X_test)
-   false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test, y_pred)
-   roc_auc = auc(false_positive_rate, true_positive_rate)
-   test_results.append(roc_auc)
+    dt = DecisionTreeClassifier(criterion='entropy', max_features=max_feature, random_state=SEED)
+    dt.fit(X_train, y_train)
+    train_pred = dt.predict(X_train)
+    false_positive_rate, true_positive_rate, thresholds = roc_curve(y_train, train_pred)
+    roc_auc = auc(false_positive_rate, true_positive_rate)
+    train_results.append(roc_auc)
+    y_pred = dt.predict(X_test)
+    false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test, y_pred)
+    roc_auc = auc(false_positive_rate, true_positive_rate)
+    test_results.append(roc_auc)
 
 plt.figure(figsize=(12,6))
 plt.plot(max_features, train_results, 'b', label='Train AUC')
@@ -353,6 +513,12 @@ plt.xlabel('max features')
 plt.legend()
 plt.show()
 ```
+
+
+    
+![png](index_files/index_33_0.png)
+    
+
 
 
 ```python
@@ -404,6 +570,13 @@ roc_auc
 ```
 
 
+
+
+    0.6387325944870701
+
+
+
+
 ```python
 # Your observations here
 ```
@@ -411,13 +584,12 @@ roc_auc
 
 ```python
 # __SOLUTION__ 
-# We improved the AUC from 0.73 in the vanilla classifier to 0.74 with some tuning. 
-# Due to randomness, results may slightly differ, there is some improvement in most cases. 
-# With more complicated (and bigger) datasets, 
-# we might see an even bigger improvement in AUC/accuracy of the classifier. 
+# We actually have a worse AUC than the vanilla classifier, because we tuned the 
+# hyper parameters one at a time. With more complicated (and bigger) datasets, 
+# we might see an improvement in AUC/accuracy of the classifier. 
 ```
 
-In the next section, we shall talk about hyperparameter tuning using a technique called "grid-search" to make this process even more granular and decisive. 
+In order to address the issue of a baseline classifier performing better than a tuned one like this, a more-sophisticated technique is called a "grid search" and this will be introduced in a future lesson.
 
 ## Summary 
 
