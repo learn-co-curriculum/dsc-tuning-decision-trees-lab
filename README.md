@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import roc_curve, auc
-plt.style.use('seaborn')
+plt.style.use('seaborn-v0_8-darkgrid')
 ```
 
 ## Import the data
